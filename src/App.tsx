@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Timeline } from './components/Timeline';
@@ -11,6 +13,30 @@ import { LeadModal } from './components/LeadModal';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 2.0, // Defines how long the scroll takes to stop
+      easing: (t) => 1 - Math.pow(1 - t, 4), // Custom easeOutQuart for a buttery slow-down stop
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.5, // Gives more travel distance per wheel notch
+      touchMultiplier: 2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

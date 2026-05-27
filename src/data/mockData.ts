@@ -21,9 +21,10 @@ export const mockData = {
   },
   quemSomos: {
     title: "QUEM SOMOS",
-    quotePart1: "O DESIGN",
-    quotePart2: "NÃO É APENAS O QUE SE VÊ E SENTE. É COMO",
-    quotePart3: "FUNCIONA. UNIMOS ESTÉTICA CINEMATOGRÁFICA E ALTA PERFORMANCE PARA ESCALAR O SEU NEGÓCIO."
+    founderName: "Dymmer Souza",
+    founderRole: "Fundador & CTO",
+    description: "Especialista em tecnologia, inovação e arquitetura de sistemas com mais de 15 anos de estrada. Dedicado a quebrar os padrões do mercado através da criação de sites cinematográficos de alta performance, sistemas complexos e automações premium impulsionadas por Inteligência Artificial. À frente da Single Studio, transformo processos empresariais complexos em interfaces imersivas e fluxos de trabalho inteligentes.",
+    image: "/dymmer.jpg"
   },
   timeline: {
     title: "NOSSO PROCESSO",
