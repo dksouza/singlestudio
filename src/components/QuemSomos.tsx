@@ -1,5 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { mockData } from '../data/mockData';
+
+const AnimatedCounter = ({ end, suffix = "", duration = 2000, className = "" }: { end: number, suffix?: string, duration?: number, className?: string }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          let startTimestamp: number | null = null;
+          const step = (timestamp: number) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            // easeOutExpo for smooth deceleration
+            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            setCount(Math.floor(easeProgress * end));
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            }
+          };
+          window.requestAnimationFrame(step);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    return () => observer.disconnect();
+  }, [end, duration]);
+
+  return (
+    <div ref={ref} className={className}>
+      {count}{suffix}
+    </div>
+  );
+};
 
 export const QuemSomos: React.FC = () => {
   return (
@@ -56,11 +95,11 @@ export const QuemSomos: React.FC = () => {
 
             <div className="mt-4 pt-8 border-t border-white/10 flex gap-12">
               <div>
-                <div className="font-display-xl text-3xl text-white mb-1">15+</div>
+                <AnimatedCounter end={15} suffix="+" duration={2500} className="font-display-xl text-3xl text-white mb-1" />
                 <div className="font-label-caps text-[10px] tracking-widest text-on-surface/50">ANOS DE EXPERIÊNCIA</div>
               </div>
               <div>
-                <div className="font-display-xl text-3xl text-primary mb-1">100%</div>
+                <AnimatedCounter end={100} suffix="%" duration={2500} className="font-display-xl text-3xl text-primary mb-1" />
                 <div className="font-label-caps text-[10px] tracking-widest text-on-surface/50">PERFORMANCE</div>
               </div>
             </div>

@@ -22,53 +22,55 @@ export const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[100] transition-opacity duration-500 ${
         isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={handleClose}></div>
+      <div className="fixed inset-0 bg-black/80 backdrop-blur-md" onClick={handleClose}></div>
       
-      <div
-        className={`relative w-full max-w-lg glass-card rounded-[24px] p-8 m-4 transform transition-transform duration-500 ${
-          isOpen ? 'scale-100' : 'scale-95'
-        }`}
-      >
+      <div className="fixed inset-0 overflow-y-auto">
+        <div className="flex min-h-full items-start md:items-center justify-center p-4 py-12 md:py-8">
+          <div
+            className={`relative w-full max-w-lg glass-card rounded-[24px] p-5 md:p-8 transform transition-transform duration-500 ${
+              isOpen ? 'scale-100' : 'scale-95'
+            }`}
+          >
         <button
           onClick={handleClose}
-          className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+          className="absolute top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-white transition-colors"
         >
           <span className="material-symbols-outlined">close</span>
         </button>
         
-        <h3 className="font-display-xl text-[32px] uppercase mb-2 text-white">INICIAR PROJETO</h3>
-        <p className="font-body-md text-on-surface-variant mb-8 text-sm">
+        <h3 className="font-display-xl text-[24px] md:text-[32px] uppercase mb-1 md:mb-2 text-white">INICIAR PROJETO</h3>
+        <p className="font-body-md text-on-surface-variant mb-4 md:mb-8 text-sm">
           Preencha os dados abaixo e nossa equipe entrará em contato.
         </p>
         
         {!isSubmitted ? (
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
             <div className="relative">
               <label className="font-label-caps text-[10px] text-primary/80 absolute -top-2 left-0">NOME</label>
-              <input type="text" required className="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="Seu nome completo" />
+              <input type="text" required className="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-1 md:py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="Seu nome completo" />
             </div>
             
-            <div className="relative mt-6">
+            <div className="relative mt-4 md:mt-6">
               <label className="font-label-caps text-[10px] text-primary/80 absolute -top-2 left-0">E-MAIL</label>
-              <input type="email" required className="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="seu@email.com" />
+              <input type="email" required className="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-1 md:py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="seu@email.com" />
             </div>
             
-            <div className="relative mt-6">
+            <div className="relative mt-4 md:mt-6">
               <label className="font-label-caps text-[10px] text-primary/80 absolute -top-2 left-0">WHATSAPP</label>
-              <input type="tel" required className="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="(11) 99999-9999" />
+              <input type="tel" required className="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-1 md:py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="(11) 99999-9999" />
             </div>
             
-            <div className="relative pt-6">
-              <label className="font-label-caps text-[10px] text-primary/80 block mb-3">CATEGORIA DO PROJETO</label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="relative pt-4 md:pt-6">
+              <label className="font-label-caps text-[10px] text-primary/80 block mb-2 md:mb-3">CATEGORIA DO PROJETO</label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-4">
                 {['SITE / LANDING PAGE', 'AUTOMAÇÃO', 'SISTEMA'].map((cat, idx) => (
                   <label key={idx} className="cursor-pointer group">
                     <input type="radio" name="categoria" value={cat} className="peer sr-only" required={idx===0} />
-                    <div className="border border-white/20 rounded-md py-3 text-center font-label-caps text-[10px] text-white/60 peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10 transition-all hover:border-white/50">
+                    <div className="border border-white/20 rounded-md py-2 md:py-3 text-center font-label-caps text-[10px] text-white/60 peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10 transition-all hover:border-white/50">
                       {cat}
                     </div>
                   </label>
@@ -76,14 +78,14 @@ export const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
             
-            <div className="relative pt-6">
-              <label className="font-label-caps text-[10px] text-primary/80 absolute top-4 left-0">DETALHES DO PROJETO</label>
-              <textarea required rows={3} className="w-full bg-white/5 border border-white/20 rounded-md text-white font-body-md p-3 pt-6 mt-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 resize-none outline-none" placeholder="Conte-nos um pouco sobre a sua necessidade..."></textarea>
+            <div className="relative pt-4 md:pt-6">
+              <label className="font-label-caps text-[10px] text-primary/80 absolute top-2 md:top-4 left-0">DETALHES DO PROJETO</label>
+              <textarea required rows={2} className="w-full bg-white/5 border border-white/20 rounded-md text-white font-body-md p-3 pt-5 md:pt-6 mt-1 md:mt-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 resize-none outline-none" placeholder="Conte-nos um pouco sobre a sua necessidade..."></textarea>
             </div>
             
             <button
               type="submit"
-              className="active:scale-95 transition-transform duration-200 w-full bg-white text-black py-4 rounded-md font-label-caps tracking-widest hover:bg-primary transition-all mt-6 flex justify-center items-center gap-2"
+              className="active:scale-95 transition-transform duration-200 w-full bg-white text-black py-3 md:py-4 rounded-md font-label-caps tracking-widest hover:bg-primary transition-all mt-4 md:mt-6 flex justify-center items-center gap-2"
             >
               ENVIAR SOLICITAÇÃO <span className="material-symbols-outlined text-[18px]">send</span>
             </button>
@@ -103,6 +105,8 @@ export const LeadModal: React.FC<LeadModalProps> = ({ isOpen, onClose }) => {
             </button>
           </div>
         )}
+          </div>
+        </div>
       </div>
     </div>
   );
