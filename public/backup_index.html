@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SINGLE STUDIO | Alta Performance & Automação</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@200;300;400;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#c3f5ff",
+                        "surface-tint": "#00daf3",
+                        "inverse-surface": "#e2e2e2",
+                        "background": "#050505", /* Overriding for Deep Obsidian */
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-background": "#e2e2e2",
+                        "surface-bright": "#37393a",
+                        "primary-container": "#00e5ff",
+                        "surface-dim": "#121414",
+                        "surface-container-high": "#282a2b",
+                        "on-secondary-fixed": "#320047",
+                        "tertiary-fixed-dim": "#c9c6c5",
+                        "on-tertiary-container": "#5a5959",
+                        "tertiary": "#f0eceb",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface": "#121414",
+                        "outline": "#849396",
+                        "on-primary-container": "#00626e",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1a1c1c",
+                        "on-tertiary": "#313030",
+                        "error-container": "#93000a",
+                        "on-primary": "#00363d",
+                        "surface-container": "#1e2020",
+                        "surface-container-highest": "#333535",
+                        "on-surface-variant": "#bac9cc",
+                        "secondary-container": "#ce5dff",
+                        "on-primary-fixed": "#001f24",
+                        "secondary": "#ebb2ff",
+                        "secondary-fixed-dim": "#ebb2ff",
+                        "primary-fixed": "#9cf0ff",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "on-surface": "#e2e2e2",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0c0f0f",
+                        "inverse-on-surface": "#2f3131",
+                        "on-secondary-fixed-variant": "#74009f",
+                        "tertiary-container": "#d3d0cf",
+                        "inverse-primary": "#006875",
+                        "on-secondary": "#520071",
+                        "primary-fixed-dim": "#00daf3",
+                        "outline-variant": "#3b494c",
+                        "on-secondary-container": "#480064",
+                        "surface-variant": "#333535",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#f8d8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "section-gap": "160px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Space Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-xl": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "110%", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "160%", "letterSpacing": "0.01em", "fontWeight": "300" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "110%", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "100%", "letterSpacing": "0.2em", "fontWeight": "500" }],
+                        "display-xl": ["80px", { "lineHeight": "90%", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            color: #e2e2e2;
+            overflow-x: hidden;
+        }
+        
+        
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Micro-noise overlay */
+        .noise-overlay::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+            opacity: 0.03;
+            z-index: 50;
+        }
+
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .grid-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .barcode-line {
+            background: repeating-linear-gradient(90deg, #e2e2e2, #e2e2e2 2px, transparent 2px, transparent 5px);
+        }
+
+        .pulse-ping {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="noise-overlay font-body-md antialiased">
+<!-- Top Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 md:py-gutter bg-transparent">
+<div class="font-headline-lg text-[24px] tracking-widest text-on-surface uppercase">SINGLE STUDIO</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-caps text-[12px] tracking-[0.2em] transition-all duration-300 ease-in-out" href="#">HOME</a>
+<a class="text-on-surface/70 font-label-caps text-[12px] tracking-[0.2em] hover:text-primary transition-all duration-300 ease-in-out" href="#">QUEM SOMOS</a>
+<a class="text-on-surface/70 font-label-caps text-[12px] tracking-[0.2em] hover:text-primary transition-all duration-300 ease-in-out" href="#">O QUE FAZEMOS</a>
+</div>
+<button onclick="document.getElementById(\'cta-section\').scrollIntoView({ behavior: \'smooth\' });" bg-primary text-on-primary font-label-caps px-6 py-2 tracking-widest hover:bg-white transition-colors">
+            FALE CONOSCO
+        </button>
+</nav>
+<main class="relative z-10">
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col items-center justify-center relative px-margin-mobile overflow-hidden pt-32">
+<div class="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent opacity-30 pointer-events-none"></div>
+<!-- Global Illumination Background Effect -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[160px] pointer-events-none"></div>
+<div class="text-center space-y-4 mb-12 relative z-10 reveal">
+<div class="flex items-center justify-center gap-4 mb-8">
+<span class="w-12 h-[1px] bg-primary/40"></span>
+<span class="font-label-caps text-primary tracking-[0.4em]">AGÊNCIA PREMIUM</span>
+<span class="w-12 h-[1px] bg-primary/40"></span>
+</div>
+<h1 class="font-display-xl text-[48px] md:text-display-xl uppercase leading-[0.85] tracking-tighter text-white">
+                    CRIANDO O <span class="inline-block w-[80px] h-[40px] md:w-[160px] md:h-[80px] align-middle mx-2 md:mx-4 rounded-full overflow-hidden border border-white/10 shadow-xl"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400&h=200" alt="Cyberpunk texture" class="w-full h-full object-cover brightness-75"></span><br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-secondary">EXTRAORDINÁRIO</span>
+</h1>
+</div>
+<!-- Central Hero Image -->
+<div class="w-full max-w-5xl aspect-square md:aspect-[21/9] rounded-[40px] overflow-hidden glass-card relative group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 animate-float" src="hero_image.png" alt="Hero Automation Creativity"/>
+<div class="absolute bottom-8 left-8 text-white">
+<p class="font-label-caps text-[10px] opacity-60">LANDING PAGES</p>
+<p class="font-label-caps text-[10px] opacity-40">ALTA CONVERSÃO</p>
+</div>
+<div class="absolute bottom-8 right-8 flex gap-2">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+<span class="w-2 h-2 rounded-full bg-white/20"></span>
+<span class="w-2 h-2 rounded-full bg-white/20"></span>
+</div>
+</div>
+<!-- Ticker Action -->
+<div class="w-full mt-12 bg-white/5 py-6 flex flex-col md:flex-row items-center justify-around gap-6 md:gap-0 font-label-caps text-on-surface border-y border-white/10 reveal" style="transition-delay: 300ms;">
+<div onclick="openModal()" class="flex items-center gap-4 cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px] border border-white/20 rounded-full p-1">north_east</span>
+                    INICIAR PROJETO
+                </div>
+<div onclick="openModal()" class="flex items-center gap-4 cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px] border border-white/20 rounded-full p-1">north_east</span>
+                    INICIAR PROJETO
+                </div>
+<div onclick="openModal()" class="flex items-center gap-4 cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px] border border-white/20 rounded-full p-1">north_east</span>
+                    INICIAR PROJETO
+                </div>
+</div>
+</section>
+<!-- Quote Section -->
+<section class="py-section-gap grid-bg flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop text-center">
+<div class="max-w-4xl reveal">
+<h2 class="font-display-xl text-[48px] md:text-[80px] leading-none uppercase text-primary mb-8 tracking-widest text-center">QUEM SOMOS</h2>
+<p class="font-display-xl text-[32px] md:text-[64px] leading-tight text-on-surface">
+                    O DESIGN <span class="inline-block px-8 py-2 bg-secondary rounded-full transform -rotate-2 align-middle mx-2 text-on-secondary">
+<span class="material-symbols-outlined align-middle mr-2">architecture</span>
+</span>
+                    NÃO É APENAS O QUE SE VÊ E SENTE. É COMO <span class="inline-block px-8 py-2 bg-primary rounded-full transform rotate-2 align-middle mx-2 text-on-primary">
+<span class="material-symbols-outlined align-middle mr-2">north_east</span>
+</span>
+                    FUNCIONA. UNIMOS ESTÉTICA CINEMATOGRÁFICA E ALTA PERFORMANCE PARA ESCALAR O SEU NEGÓCIO.
+                </p>
+</div>
+</section>
+<!-- Projects Grid -->
+<section class="py-24 md:py-section-gap px-margin-mobile md:px-margin-desktop">
+<div class="flex flex-col md:flex-row justify-start md:justify-between items-start md:items-end gap-6 mb-12 md:mb-16">
+<div class="reveal">
+<h2 class="font-display-xl text-[48px] md:text-[80px] leading-none uppercase">PROJETOS<br/>SELECIONADOS</h2>
+<div class="flex items-center gap-4 mt-4">
+<div class="w-24 h-6 barcode-line"></div>
+<span class="font-label-caps text-[10px] opacity-40">REGISTRO_PROJETOS_v.02</span>
+</div>
+</div>
+<button class="active:scale-95 active:scale-95 transition-transform duration-200 flex items-center gap-3 bg-secondary text-on-secondary px-8 py-4 rounded-full font-label-caps hover:bg-white hover:text-black transition-all reveal" style="transition-delay: 200ms;">
+                    VER TODOS OS PROJETOS
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Card 1 -->
+<div class="group relative aspect-[4/5] rounded-[48px] overflow-hidden glass-card reveal">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" data-alt="A stunning modern villa with a large infinity pool reflecting the golden hour sky. The architecture features clean horizontal lines, white concrete, and warm wooden ceilings. The setting is tropical with palm trees and a soft sunset glow. Cinematic lighting highlights the architectural details against the darkening sky, fitting a high-end luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXLw2WhKiGKgAc8-GopRylrLcpvSWCELsZspFZiLqwAyAU2i4dggIpZNMhNLG5qPvJPnVU0YL78KzXNbQpAGhgDO8eSFqhWmGHfCfsnG4ZUdmTidpJkadU2hfmaq6O15EYjT5QAE9aSp2FyGKSo4nMRAXZQcecEkwzjXRKAVrluM1tj0hCmctp2liKG65YsZcoGqgiio00AAoNINWYTZatd2n3NdYquPYduacCP0m-Td8ml15c6xFjyqvbxVBDFZiLADzXF-62kpiS"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-12">
+<h3 class="font-headline-lg text-white">ESTÉTICA PREMIUM</h3>
+<p class="font-label-caps text-primary">LANDING PAGES</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative aspect-[4/5] rounded-[48px] overflow-hidden glass-card reveal">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" data-alt="Minimalist contemporary mansion at dusk, featuring dramatic cantilevered floors and extensive glass facades. The interior glows with warm, designer lighting while the exterior is rendered in sleek dark charcoal materials. Surrounded by manicured lawns and subtle landscape lighting under a deep purple evening sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIgeMpxxPpMsNfmL1rBCKrgo7DjopyeCUu4n_DrnoVGC5XY8ndZKviBma0rgQGecQGkIC3b0iFukHm97ccYv_QO2TreQwi6PS-wVyRObJagwAW8CUDXjGTj6w2RfjLqcorphqnup1Ti3e0jwKoKp8xnHLl_4VLnnykvR4KnXHjRRrQHK6U1r4EE385Boxffm8I0Fcze9xJn9BCvg4_c0vxpzEBVKyOzj5imgb22y__5bYGR_zfgGFFsJa741j8OTasJrY0Pj7ddkOV"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-12">
+<h3 class="font-headline-lg text-white">ALTA CONVERSÃO</h3>
+<p class="font-label-caps text-primary">E-COMMERCE</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative aspect-[4/5] rounded-[48px] overflow-hidden glass-card reveal">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" data-alt="Ultra-modern waterfront estate with geometric pools and a multi-level terrace. The design emphasizes openness and connection with nature, featuring large overhangs and organic material palettes like stone and timber. Shot at blue hour to emphasize the contrast between the cool ambient light and warm interior spotlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM-HkWYM14tiBMJn2msopWIUYOfyWC_WURRa9FdYVXssiX8Y_RgSCVjamcPjb6HDzUJN8KoR-w4E0TJOShZX7-3NI25VIIvDH0DNXLJSFcsES0sueadSpv0j_C17GT_qtp72zGUrG3LqVkAonR_ZnnT1QBqgPHLJ6MHi04fy_0zwtaflRnst6Qp585dhywdnU0Z3lzsjlRmkznR0IZaJw5l1KaXhTxlFEXYu7R4mDMTh6of8981dI76xNx710GPZGBGNeYfs_H7IUn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-12">
+<h3 class="font-headline-lg text-white">SISTEMAS INTELIGENTES</h3>
+<p class="font-label-caps text-primary">AUTOMAÇÃO</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group relative aspect-[4/5] rounded-[48px] overflow-hidden glass-card reveal">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" data-alt="High-concept architectural design of a museum wing, featuring stark white walls and dramatic shadows. The space is characterized by an asymmetric composition and a futuristic atmosphere. Large windows reveal a glimpse of a structured urban landscape outside. High-contrast black and white photography style with a hint of electric blue illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwravoeHG0vovkB76y4RQqgY6hX4pPcEtbR-qSfSzJ2HUq0WKrtFCzWr3-bXLM4mO8va5y1FFoStLwDjokvxWIUpuLGIKrfLVyOl5jNNO8FayanW9X2UrrcYZ_cXgOPtOc4U7iuvW9kysx-uN-QeOv8MB4vnxeqBGYrpc-QNeHM7D_ZXuCXO4h5NTo-FS6t5Lm4XT0pev7VlN8kyhkkXBe-l3S9l4dcO1fKd00NPpQXKuQuGXf3W5ua2f1sacwplbMFMIqnEHQNutS"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-12">
+<h3 class="font-headline-lg text-white">PERFORMANCE EXTREMA</h3>
+<p class="font-label-caps text-primary">SITES CORPORATIVOS</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-24 md:py-section-gap px-margin-mobile md:px-margin-mobile md:px-margin-desktop bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+<div class="reveal">
+<h2 class="font-display-xl text-[48px] md:text-[80px] leading-none uppercase">O QUE<br/>FAZEMOS</h2>
+<div class="flex items-center gap-2 mt-4 text-primary">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="font-label-caps text-[12px] tracking-widest">SISTEMAS ONLINE</span>
+</div>
+</div>
+<p class="max-w-md font-body-md opacity-60 reveal" style="transition-delay: 200ms;">
+                    Combinamos precisão técnica com design cinematográfico para entregar ecossistemas digitais de alta conversão que elevam o patamar do seu negócio.
+                </p>
+</div>
+<div class="space-y-4">
+<!-- Service 1 -->
+<div class="group relative h-[180px] rounded-[40px] overflow-hidden glass-card cursor-pointer flex items-center px-6 md:px-12 transition-all hover:h-[220px] reveal">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="Abstract 3D architectural rendering showing clean intersecting planes of steel and glass. The composition is dynamic and diagonal, illuminated by sharp shafts of cool blue light. Deep shadows create a sense of vast structural scale, fitting a professional high-end building design service aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEuhVLe5e2vur9pUNDBfNHmjAJvCWSXOUBsdO3IGZZM8SCUQ-5ALOuh5IdlPVHEs58bZ_UCecIOUBm6SN9v0MH4tFHQblc-NmpLsMoUiBT-UteYQiKc484dM8qv33kLNfeW-kAqi05qwpgRJ4gfOybb6BsVBTzT3D_EWv9ExG_udrQa-6tAkxgmn2EXNB6ue0SlVgysXUpJLMwzGnHX4TB7s0QA-ec43P4MD3nFTnRR55B9LwLHHUjzgdO3c1WqqponBIypdKC4Pah"/>
+<div class="relative z-10 flex w-full justify-between items-center">
+<h3 class="font-display-xl text-[24px] md:text-[40px] uppercase group-hover:translate-x-4 transition-transform">SITES DE ALTA PERFORMANCE</h3>
+<span class="material-symbols-outlined text-4xl group-hover:rotate-45 transition-transform">arrow_outward</span>
+</div>
+</div>
+<!-- Service 2 -->
+<div class="group relative h-[180px] rounded-[40px] overflow-hidden glass-card cursor-pointer flex items-center px-6 md:px-12 transition-all hover:h-[220px] reveal">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="Top-down abstract view of a futuristic floor plan rendered in glowing neon lines on a dark glass surface. The design is complex and intricate, suggesting advanced spatial planning and high-tech efficiency. Cinematic blue and purple glow effects create depth and focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2Pkr3lOoWnDOPwaLYKvyu67GqMGvNIfV6nldc0qpeWiFau6NalD_FXVpLfIEZivvumSmsVKf4081-2yuboRBsqa_G2Gazl5k-RzvlY4TY3DcVsv9qM3dw4mWXBCNPwngMUXXjBaNL_q9x7fck7MmKu3OO8e6bmUeegEJWk9nI5ZrhRpjuwAlqI5sHhIWEwjYF72K3uYIc9_mCluGUqVf4qDzptQ4CWkabCKlo0CmspVebQ255onTegGNN-q6af5OWX-zQrCfHuHlM"/>
+<div class="relative z-10 flex w-full justify-between items-center">
+<h3 class="font-display-xl text-[24px] md:text-[40px] uppercase group-hover:translate-x-4 transition-transform">LANDING PAGES</h3>
+<span class="material-symbols-outlined text-4xl group-hover:rotate-45 transition-transform">arrow_outward</span>
+</div>
+</div>
+<!-- Service 3 -->
+<div class="group relative h-[180px] rounded-[40px] overflow-hidden glass-card cursor-pointer flex items-center px-6 md:px-12 transition-all hover:h-[220px] reveal">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="An abstract landscape representation of site planning, showing a minimalist topographical map with glowing elevation lines. The aesthetic is dark and clean, with a focus on precision and geographic data visualization in a high-end digital art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVEGwsgsZA8epTZ9DKTOd2GxGyGCGhJx2R8ZWIhdFFj5pAjviA5-K9lBa6cOC9XTtc05Uv0RNmuOpVJ06lzunaobIfXLwJQ1n5uwWhAQuS96L6XAGXnhOqc-8pv0UzKca1l8ax2FIV9y4ICDqIkjv8ujGBC42SDkFMT44f4HnDqitYuy-zfW1lEr3c_VtgAbPEpPP1NMs5D6OIlon69vmf225oI7j03o9BlKvXtVwUKQQW_1voYegeDFeouynFIEZKnrlQ_X4sIoz3"/>
+<div class="relative z-10 flex w-full justify-between items-center">
+<h3 class="font-display-xl text-[24px] md:text-[40px] uppercase group-hover:translate-x-4 transition-transform">AUTOMAÇÃO INTELIGENTE</h3>
+<span class="material-symbols-outlined text-4xl group-hover:rotate-45 transition-transform">arrow_outward</span>
+</div>
+</div>
+<!-- Service 4 -->
+<div class="group relative h-[180px] rounded-[40px] overflow-hidden glass-card cursor-pointer flex items-center px-6 md:px-12 transition-all hover:h-[220px] reveal">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="Macro detail of architectural construction materials: polished concrete, brushed titanium, and tempered glass. The textures are rendered in high detail, lit by a soft studio light that creates beautiful highlights and deep shadows, representing premium contracting and material quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9xiT6kWcngyxQ-q7fXSa89e-_cNp_8wD1vnxh-6mOFP5UooSclWp0drA1OVMD49quj4ZlGgEokrdBjHMHuyWUTCM9Z0m-scvSaBIIBl-nvjsJgF1aDzoIXlGmzi7lB_olWefrtJvl6m_AAkNFId6UvIiEyfoMvBpcAAO7FReCroStHj810f_6xhjcq8Fzn_V1HgFvs9h_MIQDffaJ_l3ZtaE16uS5H0V6fETg_TyOEkxfX5hLn-q4GEKa1Oqi4TsifqC2MnZ11Bg2"/>
+<div class="relative z-10 flex w-full justify-between items-center">
+<h3 class="font-display-xl text-[24px] md:text-[40px] uppercase group-hover:translate-x-4 transition-transform">SISTEMAS CUSTOMIZADOS</h3>
+<span class="material-symbols-outlined text-4xl group-hover:rotate-45 transition-transform">arrow_outward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section id="cta-section" class="px-margin-mobile md:px-margin-desktop py-24 md:py-section-gap">
+<div class="relative w-full aspect-square md:aspect-[21/7] rounded-[40px] md:rounded-[60px] overflow-hidden group reveal">
+<img class="w-full h-full object-cover brightness-50 group-hover:scale-105 transition-transform duration-1000" data-alt="Dusk silhouette of a masterfully designed modern house against a dark blue and magenta sky. The building is a series of interconnected geometric blocks with warm lights spilling out from large glass panes. The atmosphere is serene and prestigious, conveying the ultimate realization of a luxury architectural project." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuhOmQ19vsYoNIVSPitNyhtd_i_UWyuV1777DwdDAwAW2toSBdfwuQ43AhAH9uxUNJetcO3fGLnzBVvSPPj4aewAfTruTEVhPvv1BSiuhifi_BlzbKgOP0NSQf9QMhIr4Fsw4D1et7-TsoMro6NUr79ZWkDTDXJFOKQ0VGy6avpHxwvBOXny9FeyqRZ1BClikFqd0_zqyKurtfpuxEz2VPA8mb9UuQ6xIhtpLeBXR_WxT8urjItKFH3722L8f1cjbpQhZ2uNzVRlxN"/>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 md:p-8 bg-black/40 backdrop-blur-[2px]">
+<h2 class="font-display-xl text-[36px] sm:text-[48px] md:text-[100px] leading-none mb-8 md:mb-12">SOLICITE SEU<br/>ORÇAMENTO</h2>
+<button onclick="openModal()" bg-white text-black px-6 py-4 md:px-12 md:py-6 rounded-full font-label-caps text-[12px] md:text-[16px] tracking-wider md:tracking-widest hover:bg-primary transition-all  flex items-center justify-center gap-2 md:gap-4 whitespace-nowrap w-full sm:w-auto">
+                        SOLICITAR ORÇAMENTO
+                        <span class="material-symbols-outlined text-[18px] md:text-[24px]">bolt</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 py-10 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+<div class="font-headline-lg text-[20px] tracking-widest text-on-surface uppercase">SINGLE STUDIO</div>
+<div class="flex gap-4 md:gap-8 flex-wrap justify-center">
+<a class="text-on-surface/40 font-label-caps text-[10px] tracking-[0.2em] hover:text-on-surface transition-colors" href="#">HOME</a>
+<a class="text-on-surface/40 font-label-caps text-[10px] tracking-[0.2em] hover:text-on-surface transition-colors" href="#">QUEM SOMOS</a>
+<a class="text-on-surface/40 font-label-caps text-[10px] tracking-[0.2em] hover:text-on-surface transition-colors" href="#">O QUE FAZEMOS</a>
+</div>
+<p class="font-label-caps text-[10px] text-on-surface/40">© SINGLE STUDIO DIGITAL PRODUCTION. TODOS OS DIREITOS RESERVADOS.</p>
+</div>
+</footer>
+<script>
+        
+        // Scroll Reveal Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Smooth parallax effect for hero image
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            const heroImg = document.querySelector('section img');
+            if (heroImg) {
+                heroImg.style.transform = `translateY(${scroll * 0.15}px)`;
+            }
+        });
+
+        // Hover effect for service cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+
+<!-- Modal Iniciar Projeto -->
+<div id="contact-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-500">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeModal()"></div>
+    
+    <!-- Modal Content -->
+    <div class="relative w-full max-w-lg glass-card rounded-[24px] p-8 m-4 transform scale-95 transition-transform duration-500" id="modal-content">
+        <button onclick="closeModal()" absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        
+        <h3 class="font-display-xl text-[32px] uppercase mb-2 text-white">INICIAR PROJETO</h3>
+        <p class="font-body-md text-on-surface-variant mb-8 text-sm">Preencha os dados abaixo e nossa equipe entrará em contato.</p>
+        
+        <form id="project-form" class="space-y-6" onsubmit="submitForm(event)">
+            <!-- Nome -->
+            <div class="relative">
+                <label class="font-label-caps text-[10px] text-primary/80 absolute -top-2 left-0">NOME</label>
+                <input type="text" required class="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="Seu nome completo">
+            </div>
+            
+            <!-- Email -->
+            <div class="relative mt-6">
+                <label class="font-label-caps text-[10px] text-primary/80 absolute -top-2 left-0">E-MAIL</label>
+                <input type="email" required class="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="seu@email.com">
+            </div>
+            
+            <!-- WhatsApp -->
+            <div class="relative mt-6">
+                <label class="font-label-caps text-[10px] text-primary/80 absolute -top-2 left-0">WHATSAPP</label>
+                <input type="tel" required class="w-full bg-transparent border-0 border-b border-white/30 text-white font-body-md py-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 outline-none" placeholder="(11) 99999-9999">
+            </div>
+            
+            <!-- Categoria -->
+            <div class="relative pt-6">
+                <label class="font-label-caps text-[10px] text-primary/80 block mb-3">CATEGORIA DO PROJETO</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="categoria" value="site" class="peer sr-only" required>
+                        <div class="border border-white/20 rounded-md py-3 text-center font-label-caps text-[10px] text-white/60 peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10 transition-all hover:border-white/50">
+                            SITE / LANDING PAGE
+                        </div>
+                    </label>
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="categoria" value="automacao" class="peer sr-only">
+                        <div class="border border-white/20 rounded-md py-3 text-center font-label-caps text-[10px] text-white/60 peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10 transition-all hover:border-white/50">
+                            AUTOMAÇÃO
+                        </div>
+                    </label>
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="categoria" value="sistema" class="peer sr-only">
+                        <div class="border border-white/20 rounded-md py-3 text-center font-label-caps text-[10px] text-white/60 peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10 transition-all hover:border-white/50">
+                            SISTEMA
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Detalhamento -->
+            <div class="relative pt-6">
+                <label class="font-label-caps text-[10px] text-primary/80 absolute top-4 left-0">DETALHES DO PROJETO</label>
+                <textarea required rows="3" class="w-full bg-white/5 border border-white/20 rounded-md text-white font-body-md p-3 pt-6 mt-2 focus:ring-0 focus:border-primary transition-colors placeholder-white/20 resize-none outline-none" placeholder="Conte-nos um pouco sobre a sua necessidade..."></textarea>
+            </div>
+            
+            <button class="active:scale-95 active:scale-95 transition-transform duration-200 type="submit" w-full bg-white text-black py-4 rounded-md font-label-caps tracking-widest hover:bg-primary hover: transition-all mt-6 flex justify-center items-center gap-2">
+                ENVIAR SOLICITAÇÃO <span class="material-symbols-outlined text-[18px]">send</span>
+            </button>
+        </form>
+
+        <!-- Success Message (Hidden) -->
+        <div id="success-message" class="hidden absolute inset-0 bg-[#050505]/95 rounded-[24px] flex-col items-center justify-center text-center p-8 z-10">
+            <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-6 text-primary ">
+                <span class="material-symbols-outlined text-4xl">check</span>
+            </div>
+            <h4 class="font-display-xl text-[24px] text-white uppercase mb-2">SOLICITAÇÃO ENVIADA</h4>
+            <p class="font-body-md text-white/70 text-sm">Recebemos seus dados. Nossa equipe entrará em contato em breve!</p>
+            <button onclick="closeModal()" mt-8 border border-white/20 text-white px-8 py-3 rounded-full font-label-caps hover:bg-white/10 transition-colors">FECHAR</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        modal.classList.remove('hidden');
+        // Trigger reflow
+        void modal.offsetWidth;
+        modal.classList.remove('opacity-0');
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+        
+        // Reset form state
+        document.getElementById('project-form').style.display = 'block';
+        document.getElementById('project-form').reset();
+        document.getElementById('success-message').classList.add('hidden');
+        document.getElementById('success-message').classList.remove('flex');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('contact-modal');
+        const content = document.getElementById('modal-content');
+        modal.classList.add('opacity-0');
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 500);
+    }
+
+    function submitForm(e) {
+        e.preventDefault();
+        document.getElementById('project-form').style.display = 'none';
+        const successMsg = document.getElementById('success-message');
+        successMsg.classList.remove('hidden');
+        successMsg.classList.add('flex');
+    }
+</script>
+</body></html>
